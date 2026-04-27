@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Poker">
+<meta name="theme-color" content="#0f1923">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<title>Parcours — Poker Academy</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="topnav">
+  <div class="logo"><a href="index.html">&#9824; Poker Academy</a></div>
+  <a href="index.html">Accueil</a>
+  <a href="ranges.html">Ranges</a>
+  <a href="trainer.html">Trainer</a>
+  <a href="preflop.html">Pré-flop</a>
+  <a href="odds.html">Cotes &amp; Maths</a>
+  <a href="cbet.html">C-Bet</a>
+  <a href="postflop.html">Post-flop</a>
+  <a href="bankroll.html">Bankroll</a>
+  <a href="mental.html">Mental Game</a>
+  <a href="tools.html">Outils</a>
+  <a href="quiz.html">Quiz</a>
+  <a href="parcours.html" class="active">Parcours</a>
+</nav>
+<div class="main">
+
+<h1>Parcours de Progression</h1>
+<p class="subtitle">Comment aborder le poker cash game en tant que débutant et mesurer tes progrès</p>
+
+<!-- Les 3 phases de ta progression -->
+<div class="card">
+  <h2>Les 3 phases de ta progression</h2>
+
+  <div class="progress-track">
+    <div class="progress-step current">
+      <div class="progress-label">Phase 1 — Pré-flop</div>
+      <div class="progress-duration">Semaines 1-3</div>
+    </div>
+    <div class="progress-step">
+      <div class="progress-label">Phase 2 — C-Bet &amp; Post-flop</div>
+      <div class="progress-duration">Semaines 3-6</div>
+    </div>
+    <div class="progress-step">
+      <div class="progress-label">Phase 3 — BB Defense &amp; 3-Bets</div>
+      <div class="progress-duration">Semaines 6-10</div>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 1 : Maîtriser le pré-flop -->
+<div class="card">
+  <h2>Phase 1 : Maîtriser le pré-flop (Semaines 1-3)</h2>
+
+  <div class="info-box">
+    <div class="info-box-title">Objectif</div>
+    <p>Que tes décisions pré-flop deviennent automatiques. Quand tu regardes ta main et ta position, la décision (raise/fold/call) doit être instinctive, sans réfléchir.</p>
+  </div>
+
+  <p>Tout part de là. Si tu entres dans un pot avec la mauvaise main depuis la mauvaise position, même les meilleures décisions post-flop ne te sauveront pas.</p>
+
+  <p>Concrètement : apprendre tes ranges d'open par position (utilise PokerTrainer.se 15 min/jour + la page Ranges de l'app), ne jamais open-limp, utiliser un sizing standard (2.5-3 BB).</p>
+
+  <p>Pendant cette phase, ne te préoccupe pas trop du post-flop — concentre-toi sur le fait de faire les bons moves pré-flop de manière automatique.</p>
+
+  <div class="info-box">
+    <div class="info-box-title">Signal que tu es sur la bonne voie</div>
+    <p>Dans ton tracker, ton VPIP doit être entre 20-24% et ton PFR entre 17-21%, avec un écart VPIP-PFR inférieur à 4 points. Si tu vois un écart de 8-10, ça veut dire que tu limps trop.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Stat</th>
+        <th>Cible</th>
+        <th>Si hors cible...</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>VPIP</td>
+        <td>20-24%</td>
+        <td>Trop haut = tu joues trop de mains. Trop bas = tu es trop tight</td>
+      </tr>
+      <tr>
+        <td>PFR</td>
+        <td>17-21%</td>
+        <td>Doit être proche du VPIP (pas de limp)</td>
+      </tr>
+      <tr>
+        <td>VPIP-PFR gap</td>
+        <td>&lt; 4%</td>
+        <td>Si &gt; 4%, tu limps trop souvent</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Phase 2 : Le C-Bet et les bases post-flop -->
+<div class="card">
+  <h2>Phase 2 : Le C-Bet et les bases post-flop (Semaines 3-6)</h2>
+
+  <div class="info-box">
+    <div class="info-box-title">Objectif</div>
+    <p>Savoir quand continuation bet et quand check, avec un sizing adapté à la texture du board.</p>
+  </div>
+
+  <p>Une fois que ton pré-flop est solide, travaille le continuation bet. En NL2, une stratégie simplifiée fonctionne très bien : c-bet 33% du pot sur les flops secs en position, check sur les flops connectés qui favorisent le caller.</p>
+
+  <p>Ne complique pas avec des sizings multiples au début — un seul sizing (33% ou 66%) par type de board suffit.</p>
+
+  <p>L'autre chose cruciale : ne presque jamais bluffer la river en NL2. Les joueurs appellent trop. Value bet tes bonnes mains, fold quand tu n'as rien.</p>
+
+  <div class="info-box">
+    <div class="info-box-title">Signal que tu es sur la bonne voie</div>
+    <p>Ton C-Bet flop doit être entre 55-65%, et ton W$SD (gains au showdown) au-dessus de 50%. Si ton W$SD est sous 48%, tu appelles trop de bets adverses avec des mains perdantes.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Stat</th>
+        <th>Cible</th>
+        <th>Ce que ça révèle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>C-Bet Flop</td>
+        <td>55-65%</td>
+        <td>Trop haut = tu c-bet trop de boards. Trop bas = tu manques de la value</td>
+      </tr>
+      <tr>
+        <td>W$SD</td>
+        <td>&gt; 50%</td>
+        <td>Si &lt; 48%, tu call trop de river bets perdants</td>
+      </tr>
+      <tr>
+        <td>WTSD</td>
+        <td>24-28%</td>
+        <td>Trop haut = tu vas trop souvent au showdown</td>
+      </tr>
+      <tr>
+        <td>AF (Aggression Factor)</td>
+        <td>2.5-3.5</td>
+        <td>Trop bas = tu es trop passif post-flop</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Phase 3 : BB Defense et 3-Bets -->
+<div class="card">
+  <h2>Phase 3 : BB Defense et 3-Bets (Semaines 6-10)</h2>
+
+  <div class="info-box">
+    <div class="info-box-title">Objectif</div>
+    <p>Défendre correctement ta big blind et utiliser le 3-bet comme arme.</p>
+  </div>
+
+  <p>La BB est la position où tu joues le plus de mains (tu y es obligé par la structure), donc c'est un spot à gros volume. Apprends progressivement quand 3-bet, quand call, quand fold selon la position de l'ouvreur.</p>
+
+  <p>Commence par les extrêmes : vs UTG = défense tight, vs BTN = défense très large. Puis affine.</p>
+
+  <p>En parallèle, commence à 3-bet pour value depuis les autres positions. En NL2, ne te préoccupe pas des 3-bet bluffs pendant un moment — tes adversaires ne foldent pas assez pour que ce soit rentable.</p>
+
+  <div class="info-box">
+    <div class="info-box-title">Signal que tu es sur la bonne voie</div>
+    <p>Ta fréquence de 3-bet doit être entre 5-8%. Ton Fold to Steal doit être entre 55-65% (tu ne fold pas trop ni trop peu face aux steals).</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Stat</th>
+        <th>Cible</th>
+        <th>Ce que ça révèle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>3-Bet %</td>
+        <td>5-8%</td>
+        <td>Trop bas = tu ne 3-bet que les premiums. Trop haut = tu 3-bet trop light pour le NL2</td>
+      </tr>
+      <tr>
+        <td>Fold to Steal</td>
+        <td>55-65%</td>
+        <td>Trop haut = tu abandonnes trop tes blinds. Trop bas = tu défends trop de mains faibles</td>
+      </tr>
+      <tr>
+        <td>BB/100 depuis BB</td>
+        <td>&gt; -25 bb/100</td>
+        <td>Normal de perdre depuis la BB, mais pas trop</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Comment savoir si tu progresses -->
+<div class="card">
+  <h2>Comment savoir si tu progresses</h2>
+
+  <div class="info-box warning">
+    <div class="info-box-title">Important</div>
+    <p>Ne regarde pas tes gains sur les 500 ou même 2000 premières mains — la variance est trop forte, ça ne veut rien dire.</p>
+  </div>
+
+  <h3>Les stats 'processus' (ce que tu contrôles)</h3>
+  <p>VPIP, PFR, écart VPIP-PFR, fréquence de c-bet. Si ces chiffres sont dans les cibles, tu prends les bonnes décisions, même si tu perds temporairement.</p>
+
+  <h3>Les stats 'résultat' (fiables après 20 000+ mains)</h3>
+  <p>Winrate en bb/100, W$SD, courbe de gains. Un winrate positif sur 20k mains, même petit (3-5 bb/100), confirme que tu es sur la bonne voie.</p>
+
+  <h3>L'indicateur subjectif</h3>
+  <p>Est-ce que tu commences à "lire" les situations ? Quand un joueur passif mise gros à la river, est-ce que tu te dis instinctivement "il a une main forte, je fold" au lieu de payer par curiosité ? Ce genre de réflexe montre que tu progresses.</p>
+</div>
+
+<!-- La routine idéale -->
+<div class="card">
+  <h2>La routine idéale</h2>
+
+  <div class="info-box">
+    <div class="info-box-title">Avant de jouer (10-15 min)</div>
+    <p>Fais 10-15 minutes sur PokerTrainer.se pour les ranges. Choisis un point d'attention pour la session (ex: "aujourd'hui je me concentre sur mes c-bets").</p>
+  </div>
+
+  <div class="info-box">
+    <div class="info-box-title">Pendant la session (45-60 min, 2 tables)</div>
+    <p>Respecte tes ranges sans déviation. Note les mains intéressantes. Fais une micro-pause toutes les 30 minutes. Commence avec 2 tables, pas 3.</p>
+  </div>
+
+  <div class="info-box">
+    <div class="info-box-title">Après la session (15-20 min)</div>
+    <p>Review dans ton tracker : regarde tes 3 plus grosses pertes et demande-toi si tu aurais pu les éviter. Note une seule erreur à corriger pour la prochaine session. C'est cette boucle "jouer → analyser → corriger un point → rejouer" qui fait progresser, pas le volume de mains brut.</p>
+  </div>
+</div>
+
+<!-- Le bon mindset -->
+<div class="card">
+  <h2>Le bon mindset</h2>
+
+  <div class="info-box danger">
+    <div class="info-box-title">Piège classique</div>
+    <p>En NL2, ton objectif n'est PAS de gagner de l'argent. C'est d'apprendre à prendre les bonnes décisions. L'argent est une conséquence naturelle des bonnes décisions sur le long terme. Si tu joues pour "te refaire" ou "gagner X€ par session", tu vas tilter et mal jouer.</p>
+  </div>
+
+  <p>Mesure tes progrès par ta capacité à respecter tes ranges (VPIP/PFR cohérents), la qualité de tes décisions (pas le montant gagné), ton nombre de situations comprises qui augmente avec le temps, et ton contrôle émotionnel pendant les downswings.</p>
+</div>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Poker">
+<meta name="theme-color" content="#0f1923">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<title>Pré-flop — Poker Academy</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="topnav">
+  <div class="logo"><a href="index.html">&#9824; Poker Academy</a></div>
+  <a href="index.html">Accueil</a>
+  <a href="ranges.html">Ranges</a>
+  <a href="trainer.html">Trainer</a>
+  <a href="preflop.html" class="active">Pré-flop</a>
+  <a href="odds.html">Cotes &amp; Maths</a>
+  <a href="cbet.html">C-Bet</a>
+  <a href="postflop.html">Post-flop</a>
+  <a href="bankroll.html">Bankroll</a>
+  <a href="mental.html">Mental Game</a>
+  <a href="tools.html">Outils</a>
+  <a href="quiz.html">Quiz</a>
+  <a href="parcours.html">Parcours</a>
+</nav>
+<div class="main">
+  <h1>Stratégie Pré-flop</h1>
+
+  <div class="card">
+    <h3>La position, ton arme principale</h3>
+    <table class="position-table">
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Abréviation</th>
+          <th>Avantage</th>
+          <th>Stratégie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Under the gun</td>
+          <td>UTG</td>
+          <td>Très faible</td>
+          <td>Jouer serré (paires moyennes, AK, AQ)</td>
+        </tr>
+        <tr>
+          <td>Middle position</td>
+          <td>MP</td>
+          <td>Faible</td>
+          <td>Jouer serré (paires moyennes+, AJ+, KQ)</td>
+        </tr>
+        <tr>
+          <td>Cut-off</td>
+          <td>CO</td>
+          <td>Moyen</td>
+          <td>Élargir la range (petites paires, mains marginales)</td>
+        </tr>
+        <tr>
+          <td>Button</td>
+          <td>BTN</td>
+          <td>Très fort</td>
+          <td>Jouer large (toutes les paires, beaucoup de hautes cartes)</td>
+        </tr>
+        <tr>
+          <td>Small blind</td>
+          <td>SB</td>
+          <td>Moyen (mauvaise position post-flop)</td>
+          <td>3-bet ou fold contre une raise, ne pas call</td>
+        </tr>
+        <tr>
+          <td>Big blind</td>
+          <td>BB</td>
+          <td>Moyen (position excellent post-flop mais mauvaise pré-flop)</td>
+          <td>Défendre large si bonne cote</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Les 7 règles d'or pré-flop en NL2</h3>
+
+    <div class="rule">
+      <h4>1. Ne jamais open-limp</h4>
+      <p>Ne pas entrer avec une simple call (limp) avant quelqu'un d'autre. C'est trop passif. À la place : <strong>raise ou fold</strong>.</p>
+    </div>
+
+    <div class="rule">
+      <h4>2. Sizing d'open standardisé</h4>
+      <p>Ouvre toujours avec un sizing cohérent :</p>
+      <ul>
+        <li><strong>2.5 BB</strong> en général (table agressive)</li>
+        <li><strong>3 BB</strong> si la table est passive</li>
+        <li><strong>+1 BB par limper</strong> s'il y a déjà des limpers</li>
+      </ul>
+      <p>Exemple : BB = 1€, tu ouvres à 2.50€ ou 3€. S'il y a 2 limpers, tu montes à 4€ ou 5€.</p>
+    </div>
+
+    <div class="rule">
+      <h4>3. Respecter les ranges par position</h4>
+      <p>Chaque position a sa range. Consulte la page <a href="ranges.html">Ranges</a> pour connaître exactement quelles mains ouvrir selon ta position.</p>
+    </div>
+
+    <div class="rule">
+      <h4>4. 3-Bet pour la value, pas les bluffs</h4>
+      <p>Au début, ne 3-bet que pour la value. Les mains de 3-bet de base :</p>
+      <ul>
+        <li><strong>QQ+, AKs, AKo</strong> (et quelques exceptions comme JJ contre très agressifs)</li>
+      </ul>
+      <p>Sizing du 3-bet :</p>
+      <ul>
+        <li><strong>3x</strong> s'il ouvre IP (en position) = s'il ouvre 3€, tu fais 9€</li>
+        <li><strong>4x</strong> s'il ouvre OOP (out of position) = s'il ouvre 3€, tu fais 12€</li>
+      </ul>
+    </div>
+
+    <div class="rule">
+      <h4>5. La défense de big blind</h4>
+      <p>Le Big Blind doit défendre sa blinde avec une cote favorable. Par exemple :</p>
+      <ul>
+        <li>On a 1€ de blinde à risquer pour en gagner 3€ (pot + risque)</li>
+        <li>Cote = 3 pour 1 (3:1), donc on peut défendre large</li>
+        <li>Si quelqu'un ouvre à 2.50€ et on paie 1.50€ supplémentaire, c'est rentable avec beaucoup de mains</li>
+      </ul>
+    </div>
+
+    <div class="rule">
+      <h4>6. Small blind : 3-bet ou fold</h4>
+      <p>Le Small Blind a une très mauvaise position post-flop (toujours de parler en dernier en dehors du pré-flop). Donc : <strong>3-bet si tu veux jouer, sinon fold</strong>. Ne jamais call du SB.</p>
+    </div>
+
+    <div class="rule">
+      <h4>7. Adapter aux tendances NL2</h4>
+      <div class="info-box warning">
+        <p><strong>En général, les tables NL2 sont très passives.</strong> Cela veut dire :</p>
+        <ul>
+          <li>Les gens callent trop → <strong>tu dois value-bett plus, bluffer moins</strong></li>
+          <li>Moins de 3-bets → <strong>tu peux ouvrir plus large</strong></li>
+          <li>Multiway pots fréquents → <strong>resserrer ta range multiway</strong> (jouer les paires et les cartes hautes coordonnées)</li>
+          <li>Stack profonds → <strong>augmenter le sizing avec tes mains fortes</strong> (KK, AA, AK) pour extraire plus</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Récapitulatif des sizings pré-flop</h3>
+    <table class="sizing-table">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Sizing</th>
+          <th>Exemple (BB=1€)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Open-raise standard</td>
+          <td>2.5 - 3 BB</td>
+          <td>2.50€ - 3€</td>
+        </tr>
+        <tr>
+          <td>Open-raise + 1 limper</td>
+          <td>+1 BB</td>
+          <td>3.50€ - 4€</td>
+        </tr>
+        <tr>
+          <td>Open-raise + 2 limpers</td>
+          <td>+1 BB par limper</td>
+          <td>4.50€ - 5€</td>
+        </tr>
+        <tr>
+          <td>3-Bet en position (IP)</td>
+          <td>3x la raise</td>
+          <td>Si raise 3€ → 3-bet 9€</td>
+        </tr>
+        <tr>
+          <td>3-Bet hors position (OOP)</td>
+          <td>4x la raise</td>
+          <td>Si raise 3€ → 3-bet 12€</td>
+        </tr>
+        <tr>
+          <td>4-Bet</td>
+          <td>2.5x le 3-bet</td>
+          <td>Si 3-bet 9€ → 4-bet 22.50€</td>
+        </tr>
+        <tr>
+          <td>Défense BB vs raise</td>
+          <td>Cote favorable?</td>
+          <td>Dépend de la taille de la raise et du pot</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

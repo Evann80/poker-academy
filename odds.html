@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Poker">
+<meta name="theme-color" content="#0f1923">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<title>Cotes &amp; Maths — Poker Academy</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="topnav">
+  <div class="logo"><a href="index.html">&#9824; Poker Academy</a></div>
+  <a href="index.html">Accueil</a>
+  <a href="ranges.html">Ranges</a>
+  <a href="trainer.html">Trainer</a>
+  <a href="preflop.html">Pré-flop</a>
+  <a href="odds.html" class="active">Cotes &amp; Maths</a>
+  <a href="cbet.html">C-Bet</a>
+  <a href="postflop.html">Post-flop</a>
+  <a href="bankroll.html">Bankroll</a>
+  <a href="mental.html">Mental Game</a>
+  <a href="tools.html">Outils</a>
+  <a href="quiz.html">Quiz</a>
+  <a href="parcours.html">Parcours</a>
+</nav>
+<div class="main">
+  <h1>Cotes et Mathématiques du Poker</h1>
+
+  <div class="card">
+    <h2>Les Pot Odds</h2>
+    <p>Les pot odds vous permettent de déterminer si un call est mathématiquement rentable. C'est le rapport entre le montant que vous devez payer et le pot total (incluant votre mise).</p>
+    <div class="formula">
+      Pot Odds (%) = Montant à payer ÷ (Pot actuel + Montant à payer) × 100
+    </div>
+    <p><strong>Exemple:</strong> Pot actuel 0.10€, bet 0.05€. Pot odds = 0.05 ÷ (0.10 + 0.05) × 100 = 33.3%. Vous devez avoir 33.3% d'équité minimum pour call être rentable.</p>
+  </div>
+
+  <div class="card">
+    <h2>Les Outs et l'Equity</h2>
+    <p>Les outs sont les cartes qui améliorent votre main. Utilisez la règle de 2 et la règle de 4 pour calculer rapidement votre équité.</p>
+    <div class="formula">
+      Règle de 2: Equity ≈ Nombre d'outs × 2 (à la turn)<br>
+      Règle de 4: Equity ≈ Nombre d'outs × 4 (au flop)
+    </div>
+    <table>
+      <tr>
+        <th>Type de Draw</th>
+        <th>Outs</th>
+        <th>Equity au Flop</th>
+        <th>Equity à la Turn</th>
+      </tr>
+      <tr>
+        <td>Flush draw</td>
+        <td>9</td>
+        <td>~36%</td>
+        <td>~18%</td>
+      </tr>
+      <tr>
+        <td>OESD (Open-ended straight draw)</td>
+        <td>8</td>
+        <td>~32%</td>
+        <td>~16%</td>
+      </tr>
+      <tr>
+        <td>Gutshot</td>
+        <td>4</td>
+        <td>~16%</td>
+        <td>~8%</td>
+      </tr>
+      <tr>
+        <td>Combo draw (flush + OESD)</td>
+        <td>15</td>
+        <td>~54%</td>
+        <td>~30%</td>
+      </tr>
+      <tr>
+        <td>2 Overcards</td>
+        <td>6</td>
+        <td>~24%</td>
+        <td>~12%</td>
+      </tr>
+      <tr>
+        <td>Pair → Set</td>
+        <td>2</td>
+        <td>~8%</td>
+        <td>~4%</td>
+      </tr>
+      <tr>
+        <td>Flush draw + 1 overcard</td>
+        <td>12</td>
+        <td>~45%</td>
+        <td>~24%</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Calculatrice Pot Odds</h2>
+    <p>Utilisez cet outil pour calculer rapidement vos pot odds et votre équité requise.</p>
+    <div class="calculator">
+      <label for="calc-pot">Pot actuel (€):</label>
+      <input type="number" id="calc-pot" default="0.10" value="0.10" step="0.01" oninput="calcPotOdds()">
+
+      <label for="calc-bet">Mise à payer (€):</label>
+      <input type="number" id="calc-bet" default="0.05" value="0.05" step="0.01" oninput="calcPotOdds()">
+
+      <label for="calc-outs">Nombre d'outs:</label>
+      <input type="number" id="calc-outs" default="9" value="9" step="1" min="0" max="15" oninput="calcPotOdds()">
+
+      <label for="calc-street">Street:</label>
+      <select id="calc-street" oninput="calcPotOdds()">
+        <option value="flop">Flop (règle de 4)</option>
+        <option value="turn">Turn (règle de 2)</option>
+      </select>
+    </div>
+    <div id="calc-result"></div>
+  </div>
+
+  <div class="card">
+    <h2>Implied Odds</h2>
+    <p>Les implied odds prennent en compte les mises futures que vous pouvez gagner. Contrairement aux pot odds actuels, elles considèrent le profit potentiel sur les streets suivantes.</p>
+    <div class="formula">
+      Implied Odds = Pot actuel + Mises futures potentielles ÷ Montant à payer actuel
+    </div>
+    <p>Bonnes implied odds lorsque:</p>
+    <div class="info-box">
+      <ul>
+        <li>Stacks profonds (vous pouvez gagner gros si vous complétez)</li>
+        <li>Draws discrets (difficult à détecter par l'adversaire)</li>
+        <li>Calling stations (villains appelleront souvent quand vous gagnez)</li>
+      </ul>
+    </div>
+    <p>Mauvaises implied odds lorsque:</p>
+    <div class="info-box warning">
+      <ul>
+        <li>Draws obvies (l'adversaire ne paiera plus)</li>
+        <li>Stacks courts (peu de profit potentiel)</li>
+        <li>Joueurs tight (se coucheront si vous hittez)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>MDF (Minimum Defence Frequency)</h2>
+    <p>Le MDF indique la fréquence minimale à laquelle vous devez défendre votre blind pour que l'agresseur ne puisse pas bluffer de façon rentable.</p>
+    <div class="formula">
+      MDF (%) = Pot ÷ (Pot + Mise) × 100
+    </div>
+    <table>
+      <tr>
+        <th>Montant du raise</th>
+        <th>MDF requis</th>
+      </tr>
+      <tr>
+        <td>33% du pot</td>
+        <td>75%</td>
+      </tr>
+      <tr>
+        <td>50% du pot</td>
+        <td>67%</td>
+      </tr>
+      <tr>
+        <td>66% du pot</td>
+        <td>60%</td>
+      </tr>
+      <tr>
+        <td>75% du pot</td>
+        <td>57%</td>
+      </tr>
+      <tr>
+        <td>100% du pot</td>
+        <td>50%</td>
+      </tr>
+      <tr>
+        <td>150% du pot</td>
+        <td>40%</td>
+      </tr>
+    </table>
+    <div class="info-box warning">
+      <strong>NL2 Tip:</strong> En NL2, vous n'avez pas besoin de défendre aussi agressivement. Les joueurs bluffent moins et avec des mains moins faibles, donc vous pouvez être plus sélectif dans vos défenses.
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

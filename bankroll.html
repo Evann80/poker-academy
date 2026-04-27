@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Poker">
+<meta name="theme-color" content="#0f1923">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<title>Gestion de Bankroll — Poker Academy</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="topnav">
+  <div class="logo"><a href="index.html">&#9824; Poker Academy</a></div>
+  <a href="index.html">Accueil</a>
+  <a href="ranges.html">Ranges</a>
+  <a href="trainer.html">Trainer</a>
+  <a href="preflop.html">Pré-flop</a>
+  <a href="odds.html">Cotes &amp; Maths</a>
+  <a href="cbet.html">C-Bet</a>
+  <a href="postflop.html">Post-flop</a>
+  <a href="bankroll.html" class="active">Bankroll</a>
+  <a href="mental.html">Mental Game</a>
+  <a href="tools.html">Outils</a>
+  <a href="quiz.html">Quiz</a>
+  <a href="parcours.html">Parcours</a>
+</nav>
+
+<div class="main">
+  <h1>Gestion de Bankroll</h1>
+
+  <div class="card">
+    <h2>Les règles de bankroll management</h2>
+    <p>Le nombre de buy-ins nécessaires dépend de votre profil de joueur et de votre tolérance au risque.</p>
+    <table class="bankroll-table">
+      <thead>
+        <tr>
+          <th>Profil</th>
+          <th>Buy-ins requis</th>
+          <th>Exemple NL2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Conservateur</strong></td>
+          <td>30 BI</td>
+          <td>60€</td>
+        </tr>
+        <tr>
+          <td><strong>Standard</strong></td>
+          <td>20 BI</td>
+          <td>40€</td>
+        </tr>
+        <tr>
+          <td><strong>Agressif</strong></td>
+          <td>10 BI</td>
+          <td>20€</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="info-box">
+      <strong>💡 Recommandation pour NL2:</strong> Commencez avec au moins 30 buy-ins (60€). C'est la approche la plus prudente qui vous protège contre les downswings.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Quand monter ou descendre</h2>
+    <p>Utilisez ce mètre de bankroll pour visualiser votre progression:</p>
+    <div class="bankroll-meter">
+      <div class="bankroll-fill" style="width: 100%;"></div>
+    </div>
+    <div class="bankroll-scale">
+      <span>0€ Stop</span>
+      <span>20€ Danger</span>
+      <span>40€ NL2 OK</span>
+      <span>60€ Confortable</span>
+      <span>200€ NL5</span>
+    </div>
+    <table class="management-table">
+      <thead>
+        <tr>
+          <th>Situation</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&lt; 15 BI</td>
+          <td>Descendre de limit</td>
+        </tr>
+        <tr>
+          <td>20-30 BI</td>
+          <td>Rester au même niveau</td>
+        </tr>
+        <tr>
+          <td>&gt; 30 BI</td>
+          <td>Envisager monter</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="info-box warning">
+      <strong>⚠️ Attention:</strong> Ne montez jamais juste après quelques bonnes sessions! Attendez 20 000+ mains avec un winrate positif avant de monter.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Variance au NL2</h2>
+    <p>À NL2, la variance est normale. Voici ce qu'il est réaliste d'attendre:</p>
+    <table class="variance-table">
+      <thead>
+        <tr>
+          <th>Période</th>
+          <th>Fluctuations normales</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1 session</strong></td>
+          <td>-30€ à +30€ (normal)</td>
+        </tr>
+        <tr>
+          <td><strong>1 semaine</strong></td>
+          <td>-50€ à +50€ (variance)</td>
+        </tr>
+        <tr>
+          <td><strong>1 mois</strong></td>
+          <td>Downswing -100€ possible</td>
+        </tr>
+        <tr>
+          <td><strong>3 mois</strong></td>
+          <td>Votre winrate doit être visible</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

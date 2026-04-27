@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Poker">
+<meta name="theme-color" content="#0f1923">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<title>Ranges — Poker Academy</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="topnav">
+  <div class="logo"><a href="index.html">&#9824; Poker Academy</a></div>
+  <a href="index.html">Accueil</a>
+  <a href="ranges.html" class="active">Ranges</a>
+  <a href="trainer.html">Trainer</a>
+  <a href="preflop.html">Pré-flop</a>
+  <a href="odds.html">Cotes &amp; Maths</a>
+  <a href="cbet.html">C-Bet</a>
+  <a href="postflop.html">Post-flop</a>
+  <a href="bankroll.html">Bankroll</a>
+  <a href="mental.html">Mental Game</a>
+  <a href="tools.html">Outils</a>
+  <a href="quiz.html">Quiz</a>
+  <a href="parcours.html">Parcours</a>
+</nav>
+<div class="main">
+  <h1>Ranges Pré-flop par Position</h1>
+  <p class="subtitle">Ranges simplifiées pour débutants basées sur la théorie GTO</p>
+
+  <div class="range-controls">
+    <label>Format :</label>
+    <button id="btn-6max" class="btn-active" onclick="setFormat('6max')">6-Max</button>
+    <button id="btn-5max" onclick="setFormat('5max')">5-Max</button>
+    <button id="btn-8max" onclick="setFormat('8max')">8-Max</button>
+    <button id="btn-fr" onclick="setFormat('fr')">Full Ring (9)</button>
+
+    <label style="margin-left:20px;">Situation :</label>
+    <button id="btn-rfi" class="btn-active" onclick="setSituation('rfi')">RFI (Open)</button>
+    <button id="btn-bbdef" onclick="setSituation('bbdef')">BB Défense</button>
+    <button id="btn-3bet" onclick="setSituation('3bet')">3-Bet</button>
+    <button id="btn-vs3bet" onclick="setSituation('vs3bet')">vs 3-Bet</button>
+  </div>
+
+  <div class="range-legend">
+    <span><span class="dot" style="background:var(--raise)"></span> Open</span>
+    <span><span class="dot" style="background:var(--loose)"></span> Loose</span>
+    <span><span class="dot" style="background:var(--call)"></span> Call</span>
+    <span><span class="dot" style="background:var(--threebet)"></span> 3-Bet / 4-Bet</span>
+    <span><span class="dot" style="background:var(--fold)"></span> Fold</span>
+  </div>
+
+  <div id="range-stats-display"></div>
+  <div id="range-display"></div>
+
+  <div class="info-box">
+    <h3>Comment lire les ranges</h3>
+    <p>Les couleurs indiquent la force de chaque combinaison de deux cartes. Plus la couleur est foncée, plus la main est forte et plus on la joue largement. Les ranges affichées ici sont des guides simplifiés : en réalité, la fréquence de jouer chaque main varie légèrement selon le contexte (taille du stack, image en table, tendances adverses).</p>
+    <p><strong>AKs / AKo :</strong> Signifie couleur assortie / non-assortie. Par exemple, AKs est l'As de pique et le Roi de pique, tandis que AKo est l'As de pique et le Roi de cœur.</p>
+    <p><strong>Les diagonales :</strong> Représentent les paires (AA, KK, QQ...). À droite de chaque diagonale se trouvent les autres combinaisons.</p>
+  </div>
+
+  <div class="info-box warning">
+    <h3>Adaptation NL2</h3>
+    <p>À NL2, les ranges sont légèrement plus serrées que la théorie GTO pure. La rake (commission du site) est proportionnellement plus élevée en small stakes. Cela signifie qu'on doit être plus sélectif, surtout en early position. Ces ranges prennent déjà en compte cette adaptation.</p>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

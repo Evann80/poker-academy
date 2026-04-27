@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Poker">
+<meta name="theme-color" content="#0f1923">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<title>Post-flop — Poker Academy</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="topnav">
+  <div class="logo"><a href="index.html">&#9824; Poker Academy</a></div>
+  <a href="index.html">Accueil</a>
+  <a href="ranges.html">Ranges</a>
+  <a href="trainer.html">Trainer</a>
+  <a href="preflop.html">Pré-flop</a>
+  <a href="odds.html">Cotes &amp; Maths</a>
+  <a href="cbet.html">C-Bet</a>
+  <a href="postflop.html" class="active">Post-flop</a>
+  <a href="bankroll.html">Bankroll</a>
+  <a href="mental.html">Mental Game</a>
+  <a href="tools.html">Outils</a>
+  <a href="quiz.html">Quiz</a>
+  <a href="parcours.html">Parcours</a>
+</nav>
+<div class="main">
+  <h1>Stratégie Post-flop</h1>
+
+  <div class="card">
+    <h2>Range Advantage</h2>
+    <p>Le range advantage est la clé de la stratégie post-flop. Celui qui a les meilleures mains en moyenne domine le board. Voici comment analyser un flop:</p>
+    <table>
+      <tr>
+        <th>Flop</th>
+        <th>Range du Raiser (pré-flop)</th>
+        <th>Range du Caller (pré-flop)</th>
+        <th>Avantage</th>
+      </tr>
+      <tr>
+        <td>A♠ K♦ 7♣</td>
+        <td>Beaucoup de paires hautes, AK, AQ</td>
+        <td>Paires petites, draws limités</td>
+        <td>Fort avantage au raiser</td>
+      </tr>
+      <tr>
+        <td>Q♠ J♦ T♣</td>
+        <td>Paires hautes, straights, draws</td>
+        <td>Paires hautes, straights, draws</td>
+        <td>Partagé (flop connecté)</td>
+      </tr>
+      <tr>
+        <td>7♠ 6♦ 5♣</td>
+        <td>Peu de mains (petites paires surtout)</td>
+        <td>Paires, straights, draws</td>
+        <td>Fort avantage au caller</td>
+      </tr>
+    </table>
+    <p>Utilisez cet avantage pour guider vos décisions: posez-vous qui a le range advantage et jouez en conséquence.</p>
+  </div>
+
+  <div class="card">
+    <h2>Bet Sizing Post-flop</h2>
+    <p>Le sizing post-flop dépend de votre objectif (value, bluff, ou protection). Voici les principes:</p>
+
+    <div class="info-box">
+      <h3>Value Betting</h3>
+      <p>En NL2, les joueurs appellent trop. Bet plus grand avec votre value!</p>
+      <ul>
+        <li>50-66% du pot avec les paires moyennes/hautes</li>
+        <li>75-100% avec les sets et quads</li>
+        <li>Les joueurs appelleront quand même</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h3>Bluff Betting</h3>
+      <p>Réduisez votre bluffing en NL2. Les joueurs ne se couchent pas.</p>
+      <ul>
+        <li>Préférez les semi-bluffs (avec draws)</li>
+        <li>Les pur bluffs sans équité ne sont pas EV+</li>
+        <li>Limiter vos bluffs à 20-30% de vos bets</li>
+      </ul>
+    </div>
+
+    <div class="info-box warning">
+      <h3>Protection Betting</h3>
+      <p>Donnez de mauvaises cotes aux draws de l'adversaire.</p>
+      <p><strong>Exemple:</strong> Board: K♠ 9♥ 4♣ (flush draw possible). Avec AK, vous devez bet pour que les flush draws ne possèdent pas les bonnes cotes. Pot 1€, si vous betez 0.60€, les draws ont besoin de 37.5% d'équité. Un flush draw n'a que 36%, donc le bet est bon.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Textures de Board</h2>
+    <p>Chaque texture de board demande une approche différente. Voici les 5 principales:</p>
+    <table>
+      <tr>
+        <th>Texture</th>
+        <th>Caractéristiques</th>
+        <th>Exemple</th>
+        <th>Stratégie</th>
+      </tr>
+      <tr>
+        <td>Dry (sec)</td>
+        <td>Peu ou pas de draws possibles</td>
+        <td>K♠ 7♦ 2♣</td>
+        <td>C-Bet souvent, peu d'action. Paires hautes gagnent.</td>
+      </tr>
+      <tr>
+        <td>Semi-wet</td>
+        <td>Quelques draws (1-2 couleurs, peu de straights)</td>
+        <td>K♠ 9♥ 5♣</td>
+        <td>Mix de C-Bet et check. Protection importante contre les draws.</td>
+      </tr>
+      <tr>
+        <td>Wet</td>
+        <td>Beaucoup de draws (flush, straight, draw mixte)</td>
+        <td>K♠ Q♥ J♣</td>
+        <td>Attention: beaucoup de mains peuvent complétées. Sizer sizes plus gros.</td>
+      </tr>
+      <tr>
+        <td>Monotone (suite monotone)</td>
+        <td>Tous les cartes de même couleur ou connectées</td>
+        <td>9♠ 8♠ 7♠</td>
+        <td>Bet fort pour protection. Beaucoup d'équité pour les draws.</td>
+      </tr>
+      <tr>
+        <td>Pairé</td>
+        <td>Une ou deux paires sur le board</td>
+        <td>K♠ K♥ 7♣</td>
+        <td>Range des overcards très fortes pour les callants. Attention aux full houses.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>La River</h2>
+    <p>La river est la dernière street. Voici les principes essentiels:</p>
+
+    <div class="info-box">
+      <h3>Avant de value bet à la river:</h3>
+      <p><strong>Posez-vous: Quelles mains plus faibles que la mienne appelleraient?</strong></p>
+      <ul>
+        <li>Paires faibles appelleront votre paire forte</li>
+        <li>Draws manqués se coucheront</li>
+        <li>Meilleures mains se coucheront probablement pas</li>
+      </ul>
+    </div>
+
+    <div class="info-box danger">
+      <h3>Avant de bluffer à la river:</h3>
+      <p><strong>Posez-vous: Quelles mains meilleures que la mienne se coucheraient?</strong></p>
+      <p><strong>En NL2 la réponse est presque toujours: AUCUNE.</strong></p>
+      <p>Les joueurs NL2 appellent beaucoup à la river. Bluffer à la river en NL2 est presque toujours -EV. Concentrez-vous sur le value betting et ignorez les bluffs.</p>
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

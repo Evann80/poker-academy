@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Poker">
+<meta name="theme-color" content="#0f1923">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<title>C-Bet — Poker Academy</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="topnav">
+  <div class="logo"><a href="index.html">&#9824; Poker Academy</a></div>
+  <a href="index.html">Accueil</a>
+  <a href="ranges.html">Ranges</a>
+  <a href="trainer.html">Trainer</a>
+  <a href="preflop.html">Pré-flop</a>
+  <a href="odds.html">Cotes &amp; Maths</a>
+  <a href="cbet.html" class="active">C-Bet</a>
+  <a href="postflop.html">Post-flop</a>
+  <a href="bankroll.html">Bankroll</a>
+  <a href="mental.html">Mental Game</a>
+  <a href="tools.html">Outils</a>
+  <a href="quiz.html">Quiz</a>
+  <a href="parcours.html">Parcours</a>
+</nav>
+<div class="main">
+  <h1>Le Continuation Bet (C-Bet)</h1>
+
+  <div class="card">
+    <h2>Qu'est-ce qu'un C-Bet?</h2>
+    <p>Un continuation bet (ou C-Bet) est une mise effectuée par le pré-flop raiser au flop, peu importe sa main. C'est la continuation logique de son agression pré-flop. Le C-Bet est l'un des outils les plus puissants du poker moderne.</p>
+    <p>Avantages du C-Bet:</p>
+    <ul>
+      <li>Cela gagne souvent immédiatement (beaucoup de mains se couchent)</li>
+      <li>Cela donne une structure à votre stratégie post-flop</li>
+      <li>Cela permet de bâtir votre équité avec les draws</li>
+      <li>Cela crée de la confusion pour votre adversaire</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Fréquences de C-Bet par Position</h2>
+    <div class="subtab-container">
+      <div class="subtab-buttons">
+        <button class="subtab-btn active" onclick="showSubtab('cbet-ip')">En position (IP)</button>
+        <button class="subtab-btn" onclick="showSubtab('cbet-oop')">Hors position (OOP)</button>
+      </div>
+
+      <div id="cbet-ip" class="subtab active">
+        <h3>C-Bet en position (après la action du donneur)</h3>
+        <p>En position, vous avez plus d'informations. Vous pouvez ajuster votre C-Bet frequency en fonction des flops.</p>
+        <table>
+          <tr>
+            <th>Type de Flop</th>
+            <th>Fréquence de C-Bet</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>Sec et haut (K-Q-5r)</td>
+            <td>70-80%</td>
+            <td>Peu de draws, peu de raisons de check.</td>
+          </tr>
+          <tr>
+            <td>Moyen/déconnecté (7-4-2r)</td>
+            <td>60-70%</td>
+            <td>Surtout des value bets avec paires hautes.</td>
+          </tr>
+          <tr>
+            <td>Connecté/moyen (J-T-9r)</td>
+            <td>40-50%</td>
+            <td>Beaucoup de cartes améliorent le range du caller.</td>
+          </tr>
+          <tr>
+            <td>Bas/connecté (5-4-3r)</td>
+            <td>30-40%</td>
+            <td>Faible draw, raison de checker souvent.</td>
+          </tr>
+          <tr>
+            <td>Monotone/drawy (K-9-4s)</td>
+            <td>50-70%</td>
+            <td>Bet pour la protection, surtout sans backdoor.</td>
+          </tr>
+        </table>
+        <div class="info-box">
+          <strong>NL2 Tip:</strong> En NL2, vous pouvez C-Bet plus souvent. Les joueurs ne défendent pas assez. Utilisez des sizings petits (33% du pot) pour maximiser votre EV avec les faibles mains et les draws.
+        </div>
+      </div>
+
+      <div id="cbet-oop" class="subtab">
+        <h3>C-Bet hors position</h3>
+        <p>Hors position, vous devez être plus prudent. Vous ne reverrez pas l'action, donc vous betez pour la value ou les draws avec équité.</p>
+        <table>
+          <tr>
+            <th>Type de Flop</th>
+            <th>Fréquence de C-Bet</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>Très favorable (K-Q-J, T-9-8)</td>
+            <td>60-70%</td>
+            <td>Beaucoup de value bets, peu de raisons de check.</td>
+          </tr>
+          <tr>
+            <td>Moyen (J-7-5r)</td>
+            <td>35-50%</td>
+            <td>Mix de value et semi-bluff, dépend de votre main.</td>
+          </tr>
+          <tr>
+            <td>Défavorable (3-2-2, monotone suite)</td>
+            <td>20-30%</td>
+            <td>Check plus souvent, réserver les bets pour la meilleure équité.</td>
+          </tr>
+        </table>
+        <div class="info-box warning">
+          <strong>Important:</strong> Ne sous-estimez pas la valeur du check hors position. C'est une play totalement valide et souvent meilleure que de bet.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Les Sizings de C-Bet</h2>
+    <p>Le sizing de votre C-Bet a un impact énorme sur votre EV long-terme. Voici les recommendations en NL2:</p>
+    <table>
+      <tr>
+        <th>Sizing</th>
+        <th>Situations</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>25-33% du pot</td>
+        <td>Dry boards, C-bets fréquents</td>
+        <td>Bon pour maximiser le profit avec les draws et faibles valeurs.</td>
+      </tr>
+      <tr>
+        <td>50-66% du pot</td>
+        <td>Drawy boards, besoin de protection</td>
+        <td>Donner de mauvaises cotes aux draws.</td>
+      </tr>
+      <tr>
+        <td>75-100% du pot</td>
+        <td>Très drawy, big bluffs rares</td>
+        <td>Rare en NL2, réserver pour les situations extrêmes.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Double Barrel (C-Bet à la turn)</h2>
+    <p>Un double barrel est un C-Bet suivi d'une deuxième mise à la turn. C'est un tool puissant mais à utiliser à bon escient.</p>
+    <p>Bonnes cartes pour double barrel:</p>
+    <div class="info-box">
+      <ul>
+        <li>Cartes qui améliorent votre range (complètent vos combos)</li>
+        <li>Cartes qui complètent vos draws (flush draws qui se sont complétés)</li>
+        <li>Cartes qui ajoutent de l'équité à vos semi-bluffs</li>
+      </ul>
+    </div>
+    <p>Mauvaises cartes pour double barrel:</p>
+    <div class="info-box danger">
+      <ul>
+        <li>Cartes neutres (ne changent rien pour vous)</li>
+        <li>Cartes qui améliorent le range du caller (cartes connect-out)</li>
+        <li>En NL2, souvenez-vous: les callers ont souvent déjà une main faite. Ne doublez pas barrel léger.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
