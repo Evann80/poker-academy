@@ -1562,7 +1562,7 @@ const RANGE_NOTES = {
 // ============================================================
 // RANGE RENDERING
 // ============================================================
-let currentFormat = '6max';
+let currentFormat = '5max';
 let currentSituation = 'rfi';
 
 function setFormat(f) {
@@ -2064,10 +2064,24 @@ function showNextTrainerHand() {
   trainerState.situation = chosen.sit;
   trainerState.currentPos = chosen.posKey;
 
-  // Pick random hand from all 169 combos
-  const r = Math.floor(Math.random() * 13);
-  const c = Math.floor(Math.random() * 13);
-  trainerState.currentHand = handAt(r, c);
+  // For vs3bet, hero already opened — restrict the dealt hand to their open range,
+  // otherwise the scenario is incoherent (e.g. CO open with J6o doesn't happen).
+  let hand = null;
+  if (chosen.sit === 'vs3bet') {
+    const heroPos = chosen.posKey.replace(' open', '');
+    const rfi = RANGES[fmt]?.rfi?.[heroPos];
+    if (rfi) {
+      const opens = [...(rfi.raise || [])];
+      if (trainerState.includeLoose && rfi.looseRaise) opens.push(...rfi.looseRaise);
+      if (opens.length > 0) hand = pickRandom(opens);
+    }
+  }
+  if (!hand) {
+    const r = Math.floor(Math.random() * 13);
+    const c = Math.floor(Math.random() * 13);
+    hand = handAt(r, c);
+  }
+  trainerState.currentHand = hand;
   trainerState.answered = false;
 
   // Build table state
