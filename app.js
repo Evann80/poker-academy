@@ -1984,28 +1984,39 @@ function getSituationLabel(sit) {
 
 function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-function handToCards(hand) {
-  const suits = ['♠','♥','♦','♣'];
-  const rank1 = hand[0];
-  const rank2 = hand[1];
+const SUITS = [
+  { suit: '♠', color: 'black' },
+  { suit: '♥', color: 'red' },
+  { suit: '♦', color: 'red' },
+  { suit: '♣', color: 'black' }
+];
 
+function handToCards(hand) {
+  const rank1 = hand[0], rank2 = hand[1];
   if (hand.length === 2) {
-    // Pair
+    // Pair: two distinct suits
+    const i1 = Math.floor(Math.random() * 4);
+    let i2 = Math.floor(Math.random() * 3);
+    if (i2 >= i1) i2++;
     return [
-      { rank: rank1, suit: '♠', color: 'black' },
-      { rank: rank2, suit: '♥', color: 'red' }
+      { rank: rank1, ...SUITS[i1] },
+      { rank: rank2, ...SUITS[i2] }
     ];
   } else if (hand[2] === 's') {
-    // Suited
+    // Suited: same suit
+    const s = SUITS[Math.floor(Math.random() * 4)];
     return [
-      { rank: rank1, suit: '♠', color: 'black' },
-      { rank: rank2, suit: '♠', color: 'black' }
+      { rank: rank1, ...s },
+      { rank: rank2, ...s }
     ];
   } else {
-    // Offsuit
+    // Offsuit: two distinct suits
+    const i1 = Math.floor(Math.random() * 4);
+    let i2 = Math.floor(Math.random() * 3);
+    if (i2 >= i1) i2++;
     return [
-      { rank: rank1, suit: '♠', color: 'black' },
-      { rank: rank2, suit: '♥', color: 'red' }
+      { rank: rank1, ...SUITS[i1] },
+      { rank: rank2, ...SUITS[i2] }
     ];
   }
 }
@@ -2154,6 +2165,8 @@ function showNextTrainerHand() {
 
   // Pick a combo-weighted hand from the appropriate pool (borderline / vs3bet opens / full grid).
   trainerState.currentHand = pickHandForScenario(fmt, chosen.sit, chosen.posKey);
+  // Randomize suits once at deal time so they stay stable across re-renders.
+  trainerState.currentCards = handToCards(trainerState.currentHand);
   trainerState.answered = false;
 
   // Build table state
@@ -2194,7 +2207,7 @@ function renderPokerTable() {
   const container = document.getElementById('trainer-container');
   const { seats, states, heroIdx, btnIdx } = trainerState.tableState;
   const hand = trainerState.currentHand;
-  const cards = handToCards(hand);
+  const cards = trainerState.currentCards || handToCards(hand);
   const numSeats = seats.length;
   const positions = SEAT_POSITIONS[numSeats];
   const fmt = trainerState.format;
