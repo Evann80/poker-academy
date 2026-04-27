@@ -1863,8 +1863,92 @@ let trainerState = {
       const v = localStorage.getItem('trainer-include-loose');
       return v === null ? true : v === 'true';
     } catch (e) { return true; }
-  })()
+  })(),
+  borderlineMode: (() => {
+    try { return localStorage.getItem('trainer-borderline') === 'true'; } catch (e) { return false; }
+  })(),
+  autoAdvance: (() => {
+    try {
+      const v = localStorage.getItem('trainer-auto-advance');
+      return v === null ? true : v === 'true';
+    } catch (e) { return true; }
+  })(),
+  advanceTimeout: null
 };
+
+// Combo counts and weighted hand sampling.
+// Pairs = 6 combos, suited = 4, offsuit = 12. Total = 1326.
+function comboWeight(hand) {
+  if (hand.length === 2) return 6;
+  return hand.endsWith('s') ? 4 : 12;
+}
+
+const ALL_HANDS = (() => {
+  const arr = [];
+  for (let r = 0; r < 13; r++) for (let c = 0; c < 13; c++) arr.push(handAt(r, c));
+  return arr;
+})();
+
+function pickWeightedHand(handArray) {
+  if (!handArray.length) return null;
+  let total = 0;
+  for (const h of handArray) total += comboWeight(h);
+  let r = Math.random() * total;
+  for (const h of handArray) {
+    r -= comboWeight(h);
+    if (r <= 0) return h;
+  }
+  return handArray[handArray.length - 1];
+}
+
+// Border = range cells expanded by ±1 in row/col on the 13x13 grid.
+function getBorderlineHandsSet(rangeData) {
+  const inRange = new Set();
+  if (rangeData.raise) for (const h of rangeData.raise) inRange.add(h);
+  if (rangeData.call) for (const h of rangeData.call) inRange.add(h);
+  if (rangeData.looseRaise) for (const h of rangeData.looseRaise) inRange.add(h);
+  const cells = new Set();
+  for (let r = 0; r < 13; r++) for (let c = 0; c < 13; c++) {
+    if (inRange.has(handAt(r, c))) cells.add(r * 13 + c);
+  }
+  const expanded = new Set();
+  for (const k of cells) {
+    const r = Math.floor(k / 13), c = k % 13;
+    expanded.add(k);
+    if (r > 0) expanded.add((r - 1) * 13 + c);
+    if (r < 12) expanded.add((r + 1) * 13 + c);
+    if (c > 0) expanded.add(r * 13 + (c - 1));
+    if (c < 12) expanded.add(r * 13 + (c + 1));
+  }
+  const result = new Set();
+  for (const k of expanded) result.add(handAt(Math.floor(k / 13), k % 13));
+  return result;
+}
+
+// Pool of valid hands for a given scenario (respects borderline mode + vs3bet open constraint).
+function pickHandForScenario(fmt, sit, posKey) {
+  const rangeData = RANGES[fmt][sit][posKey];
+  let pool = trainerState.borderlineMode
+    ? Array.from(getBorderlineHandsSet(rangeData))
+    : [...ALL_HANDS];
+
+  if (sit === 'vs3bet') {
+    const heroPos = posKey.replace(' open', '');
+    const rfi = RANGES[fmt]?.rfi?.[heroPos];
+    if (rfi) {
+      const opens = new Set();
+      if (rfi.raise) for (const h of rfi.raise) opens.add(h);
+      if (trainerState.includeLoose && rfi.looseRaise) for (const h of rfi.looseRaise) opens.add(h);
+      pool = pool.filter(h => opens.has(h));
+    }
+  }
+
+  if (!pool.length) {
+    // Fallback: full grid
+    return handAt(Math.floor(Math.random() * 13), Math.floor(Math.random() * 13));
+  }
+  return pickWeightedHand(pool);
+}
 
 // Determine the hero position for a given situation + position key
 function getHeroForScenario(sit, posKey) {
@@ -2039,6 +2123,10 @@ function getTableState(format, situation, heroPos) {
 }
 
 function showNextTrainerHand() {
+  if (trainerState.advanceTimeout) {
+    clearTimeout(trainerState.advanceTimeout);
+    trainerState.advanceTimeout = null;
+  }
   const fmt = trainerState.format;
   const formatData = RANGES[fmt];
 
@@ -2064,24 +2152,8 @@ function showNextTrainerHand() {
   trainerState.situation = chosen.sit;
   trainerState.currentPos = chosen.posKey;
 
-  // For vs3bet, hero already opened — restrict the dealt hand to their open range,
-  // otherwise the scenario is incoherent (e.g. CO open with J6o doesn't happen).
-  let hand = null;
-  if (chosen.sit === 'vs3bet') {
-    const heroPos = chosen.posKey.replace(' open', '');
-    const rfi = RANGES[fmt]?.rfi?.[heroPos];
-    if (rfi) {
-      const opens = [...(rfi.raise || [])];
-      if (trainerState.includeLoose && rfi.looseRaise) opens.push(...rfi.looseRaise);
-      if (opens.length > 0) hand = pickRandom(opens);
-    }
-  }
-  if (!hand) {
-    const r = Math.floor(Math.random() * 13);
-    const c = Math.floor(Math.random() * 13);
-    hand = handAt(r, c);
-  }
-  trainerState.currentHand = hand;
+  // Pick a combo-weighted hand from the appropriate pool (borderline / vs3bet opens / full grid).
+  trainerState.currentHand = pickHandForScenario(fmt, chosen.sit, chosen.posKey);
   trainerState.answered = false;
 
   // Build table state
@@ -2228,6 +2300,8 @@ function renderPokerTable() {
   }).join('');
 
   const looseToggle = `<button class="trainer-sit-btn trainer-loose-btn ${trainerState.includeLoose ? 'active' : ''}" onclick="toggleTrainerLoose()" title="Inclure les opens loose comme bonne réponse Raise">Loose ${trainerState.includeLoose ? 'ON' : 'OFF'}</button>`;
+  const borderlineToggle = `<button class="trainer-sit-btn ${trainerState.borderlineMode ? 'active' : ''}" onclick="toggleTrainerBorderline()" title="Restreint les mains aux frontières du range (mains marginales)">Borderline ${trainerState.borderlineMode ? 'ON' : 'OFF'}</button>`;
+  const autoAdvanceToggle = `<button class="trainer-sit-btn ${trainerState.autoAdvance ? 'active' : ''}" onclick="toggleTrainerAutoAdvance()" title="Passer automatiquement à la main suivante après ta réponse">Auto-suivant ${trainerState.autoAdvance ? 'ON' : 'OFF'}</button>`;
 
   container.innerHTML = `
     <div class="trainer-topbar">
@@ -2246,6 +2320,11 @@ function renderPokerTable() {
       ${posFilters}
       <span style="flex:1"></span>
       ${looseToggle}
+    </div>
+    <div class="trainer-filter-bar">
+      <span class="trainer-filter-label">Options :</span>
+      ${borderlineToggle}
+      ${autoAdvanceToggle}
     </div>
     <div class="trainer-scenario">${scenarioText}</div>
     <div class="poker-table-wrapper">
@@ -2286,6 +2365,20 @@ function toggleTrainerSituation(sit) {
 function toggleTrainerLoose() {
   trainerState.includeLoose = !trainerState.includeLoose;
   try { localStorage.setItem('trainer-include-loose', String(trainerState.includeLoose)); } catch (e) {}
+  renderPokerTable();
+}
+
+function toggleTrainerBorderline() {
+  trainerState.borderlineMode = !trainerState.borderlineMode;
+  try { localStorage.setItem('trainer-borderline', String(trainerState.borderlineMode)); } catch (e) {}
+  // Re-draw a hand so the new mode applies immediately, unless the user already answered.
+  if (trainerState.answered) renderPokerTable();
+  else showNextTrainerHand();
+}
+
+function toggleTrainerAutoAdvance() {
+  trainerState.autoAdvance = !trainerState.autoAdvance;
+  try { localStorage.setItem('trainer-auto-advance', String(trainerState.autoAdvance)); } catch (e) {}
   renderPokerTable();
 }
 
@@ -2366,23 +2459,58 @@ function answerTrainer(action) {
     ? `<div class="trainer-feedback-note">${rangeData.notes.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>`
     : '';
 
-  // Loose tag for RFI hands that are in the loose-only set
-  const looseTag = (sit === 'rfi' && inLoose && !inRaise)
-    ? ` <span class="trainer-loose-tag">open loose</span>`
-    : '';
+  // Loose tag — for RFI when hand is loose-only, or for vs3bet when the
+  // hero opened a loose-only hand
+  let isLooseOpen = false;
+  if (sit === 'rfi' && inLoose && !inRaise) {
+    isLooseOpen = true;
+  } else if (sit === 'vs3bet') {
+    const heroPos = pos.replace(' open', '');
+    const heroRfi = RANGES[fmt]?.rfi?.[heroPos];
+    if (heroRfi && heroRfi.looseRaise && heroRfi.looseRaise.has(hand)
+        && !(heroRfi.raise && heroRfi.raise.has(hand))) {
+      isLooseOpen = true;
+    }
+  }
+  const looseTag = isLooseOpen ? ` <span class="trainer-loose-tag">open loose</span>` : '';
+
+  // Mini range matrix highlighting where the current hand sits
+  const miniRangeHtml = renderMiniRange(rangeData, hand, sit);
+
+  // Next button — always present so user can advance manually
+  const nextBtn = `<button class="trainer-next-btn" onclick="showNextTrainerHand()">Suivant →</button>`;
 
   if (isCorrect) {
     feedbackEl.className = 'poker-feedback correct';
-    feedbackEl.innerHTML = `✓ Correct !${looseTag}${noteHtml}`;
+    feedbackEl.innerHTML = `✓ Correct !${looseTag}${miniRangeHtml}${noteHtml}${nextBtn}`;
   } else {
     const expected = Array.from(correct).join(' ou ');
     feedbackEl.className = 'poker-feedback wrong';
-    feedbackEl.innerHTML = `✗ Réponse attendue : ${expected}${looseTag}${noteHtml}`;
+    feedbackEl.innerHTML = `✗ Réponse attendue : ${expected}${looseTag}${miniRangeHtml}${noteHtml}${nextBtn}`;
   }
 
-  // Auto-advance (longer if there's a note to read)
-  const delay = noteHtml ? 4000 : 1800;
-  setTimeout(() => { showNextTrainerHand(); }, delay);
+  // Auto-advance (only if enabled). Longer if there's a note to read.
+  if (trainerState.autoAdvance) {
+    const delay = noteHtml ? 4000 : 1800;
+    trainerState.advanceTimeout = setTimeout(() => { showNextTrainerHand(); }, delay);
+  }
+}
+
+function renderMiniRange(rangeData, currentHand, situation) {
+  const raiseClass = situation === 'rfi' ? 'raise' : 'threebet';
+  const cells = [];
+  for (let r = 0; r < 13; r++) {
+    for (let c = 0; c < 13; c++) {
+      const h = handAt(r, c);
+      let cls = 'fold';
+      if (rangeData.raise && rangeData.raise.has(h)) cls = raiseClass;
+      else if (rangeData.looseRaise && rangeData.looseRaise.has(h)) cls = 'loose';
+      else if (rangeData.call && rangeData.call.has(h)) cls = 'call';
+      const isCurrent = h === currentHand;
+      cells.push(`<div class="mini-cell ${cls}${isCurrent ? ' current' : ''}">${h}</div>`);
+    }
+  }
+  return `<div class="trainer-mini-range"><div class="mini-grid">${cells.join('')}</div></div>`;
 }
 
 // ============================================================
