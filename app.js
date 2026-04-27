@@ -2489,6 +2489,16 @@ function answerTrainer(action) {
     feedbackEl.innerHTML = `✗ Réponse attendue : ${expected}${looseTag}${miniRangeHtml}${noteHtml}${nextBtn}`;
   }
 
+  // Smooth-scroll the Next button into view so the user (especially on mobile)
+  // doesn't need to scroll manually to advance.
+  requestAnimationFrame(() => {
+    const nextBtnEl = feedbackEl.querySelector('.trainer-next-btn');
+    if (nextBtnEl) {
+      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      nextBtnEl.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+    }
+  });
+
   // Auto-advance (only if enabled). Longer if there's a note to read.
   if (trainerState.autoAdvance) {
     const delay = noteHtml ? 4000 : 1800;
