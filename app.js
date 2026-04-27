@@ -1784,6 +1784,15 @@ const TABLE_SEATS = {
   'fr':   ['UTG+1','MP','LJ','HJ','CO','BTN','SB','BB','UTG']
 };
 
+// Preflop action order — independent from TABLE_SEATS (which is geographic).
+// First-to-act → last-to-act, ending with the blinds.
+const ACTION_ORDER = {
+  '5max': ['HJ','CO','BTN','SB','BB'],
+  '6max': ['UTG','HJ','CO','BTN','SB','BB'],
+  '8max': ['UTG','UTG+1','MP','HJ','CO','BTN','SB','BB'],
+  'fr':   ['UTG','UTG+1','MP','LJ','HJ','CO','BTN','SB','BB']
+};
+
 // Seat position coordinates (% of wrapper)
 const SEAT_POSITIONS = {
   5: [
@@ -1917,12 +1926,8 @@ function handToCards(hand) {
   }
 }
 
-function getActionOrder(seats) {
-  // Action order: all seats except SB/BB first, then SB, then BB
-  const sbIdx = seats.indexOf('SB');
-  const bbIdx = seats.indexOf('BB');
-  const nonBlinds = seats.filter(s => s !== 'SB' && s !== 'BB');
-  return [...nonBlinds, 'SB', 'BB'];
+function getActionOrder(format) {
+  return ACTION_ORDER[format] || [];
 }
 
 function getTableState(format, situation, heroPos) {
@@ -1933,7 +1938,7 @@ function getTableState(format, situation, heroPos) {
   if (situation === 'rfi') {
     // Hero is at heroPos, everyone before in action order folded
     heroIdx = seats.indexOf(heroPos);
-    const actionOrder = getActionOrder(seats);
+    const actionOrder = getActionOrder(format);
     const heroActionIdx = actionOrder.indexOf(heroPos);
 
     for (let i = 0; i < seats.length; i++) {
@@ -1955,7 +1960,7 @@ function getTableState(format, situation, heroPos) {
   else if (situation === 'bbdef') {
     const villainPos = heroPos.replace('vs ', '');
     heroIdx = seats.indexOf('BB');
-    const actionOrder = getActionOrder(seats);
+    const actionOrder = getActionOrder(format);
     const villainActionIdx = actionOrder.indexOf(villainPos);
 
     for (let i = 0; i < seats.length; i++) {
@@ -1975,7 +1980,7 @@ function getTableState(format, situation, heroPos) {
     }
   }
   else if (situation === '3bet') {
-    const actionOrder = getActionOrder(seats);
+    const actionOrder = getActionOrder(format);
     let heroPosition, villainPos;
     if (heroPos.includes(' vs ')) {
       [heroPosition, villainPos] = heroPos.split(' vs ');
@@ -2009,7 +2014,7 @@ function getTableState(format, situation, heroPos) {
   else if (situation === 'vs3bet') {
     const heroPosition = heroPos.replace(' open', '');
     heroIdx = seats.indexOf(heroPosition);
-    const actionOrder = getActionOrder(seats);
+    const actionOrder = getActionOrder(format);
     const heroActionIdx = actionOrder.indexOf(heroPosition);
 
     // Pick 3-bettor among positions that act after hero
@@ -2076,7 +2081,12 @@ function buildScenarioText() {
   const pos = trainerState.currentPos;
   const hand = trainerState.currentHand;
   if (sit === 'rfi') {
-    return `Tu es <strong>${pos}</strong>. L'action te revient (tout le monde fold avant). Tu as <strong>${hand}</strong>.`;
+    const order = ACTION_ORDER[trainerState.format] || [];
+    const isFirstToAct = order[0] === pos;
+    const intro = isFirstToAct
+      ? `Tu es <strong>${pos}</strong>. C'est à toi de parler (premier à agir).`
+      : `Tu es <strong>${pos}</strong>. L'action te revient (tout le monde fold avant).`;
+    return `${intro} Tu as <strong>${hand}</strong>.`;
   } else if (sit === 'bbdef') {
     const villain = pos.replace('vs ', '');
     return `Tu es <strong>BB</strong>. <strong>${villain}</strong> ouvre à ${openSize(villain)}bb (les autres foldent). Tu as <strong>${hand}</strong>.`;
