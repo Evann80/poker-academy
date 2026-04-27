@@ -1985,10 +1985,10 @@ function getSituationLabel(sit) {
 function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 const SUITS = [
-  { suit: '♠', color: 'black' },
-  { suit: '♥', color: 'red' },
-  { suit: '♦', color: 'red' },
-  { suit: '♣', color: 'black' }
+  { suit: '♠', color: 'spade' },
+  { suit: '♥', color: 'heart' },
+  { suit: '♦', color: 'diamond' },
+  { suit: '♣', color: 'club' }
 ];
 
 function handToCards(hand) {

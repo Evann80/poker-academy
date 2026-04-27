@@ -490,15 +490,15 @@ tr:hover { background: rgba(255,255,255,0.03); }
   font-size: 1.4rem;
 }
 
-.poker-card.red .poker-card-rank,
-.poker-card.red .poker-card-suit {
-  color: #dc2626;
-}
-
-.poker-card.black .poker-card-rank,
-.poker-card.black .poker-card-suit {
-  color: #1a1a1a;
-}
+/* 4-colour deck */
+.poker-card.spade   .poker-card-rank,
+.poker-card.spade   .poker-card-suit { color: #1a1a1a; }
+.poker-card.heart   .poker-card-rank,
+.poker-card.heart   .poker-card-suit { color: #dc2626; }
+.poker-card.diamond .poker-card-rank,
+.poker-card.diamond .poker-card-suit { color: #2563eb; }
+.poker-card.club    .poker-card-rank,
+.poker-card.club    .poker-card-suit { color: #16a34a; }
 
 .poker-card-back {
   display: inline-block;
